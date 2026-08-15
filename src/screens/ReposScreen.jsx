@@ -31,7 +31,7 @@ export default function ReposScreen() {
           <span className="eyebrow">Live from the API</span>
           <h2>GitHub Repositories</h2>
           <p className="section-desc">
-            Pulled from the GitHub API when the page loads — so this list is never out of date.
+            My public GitHub repositories, loaded live from the GitHub API.
           </p>
         </div>
       </Reveal>

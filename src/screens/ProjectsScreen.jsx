@@ -58,8 +58,10 @@ export default function ProjectsScreen() {
           <span className="eyebrow">Select mode</span>
           <h2>Projects</h2>
           <p className="section-desc">
-            Everything in one place — web builds, interface design, and data work. Filter it if you
-            have a lane, or just scroll.
+            <p className="section-desc">
+              A collection of my web development, UI/UX, and data projects. Use the filters or search bar 
+              to explore different types of work, from responsive websites to interactive apps and data-focused projects.
+            </p>
           </p>
         </div>
       </Reveal>
