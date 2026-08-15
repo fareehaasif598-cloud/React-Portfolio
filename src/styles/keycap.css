@@ -1,0 +1,111 @@
+/* =============================================================
+   KEYCAP BUTTON —  done.
+
+   THE ONE RULE THAT MAKES THIS WORK:
+   the shadow's vertical offset must always equal the travel
+   distance. If the key lifts 8px, its side wall must be 8px tall —
+   otherwise the cap visually detaches from its own base and the
+   illusion dies instantly.
+
+   That is the entire reason for --travel. One number per state, and
+   the rule can't be broken by accident. Worth remembering as a
+   pattern: when two properties must stay in lockstep, give them one
+   variable instead of two values.
+   ============================================================= */
+
+/* The slot: a dark well for the key to sit in. */
+.keyslot {
+  display: inline-block;
+  padding-bottom: 8px; /* clearance for the key to travel into */
+  border-radius: var(--radius);
+  background: var(--dark);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.key {
+  --travel: 4px; /* how far out of the slot it rests */
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px; /* minimum comfortable tap target */
+  padding: 0 20px;
+  border: 1px solid var(--dark);
+  border-radius: var(--radius); /* 4px. Rectangular, but not a razor blade. */
+  font-family: var(--font-retro);
+  font-size: 1.05rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+
+  /* The whole effect, in two properties. */
+  transform: translateY(calc(var(--travel) * -1));
+  box-shadow: 0 var(--travel) 0 var(--key-edge);
+
+  transition: transform 120ms ease-out, box-shadow 120ms ease-out;
+}
+
+/* --key-edge is a DARKER version of the face colour, never grey.
+   Grey reads as a drop shadow; a darker tint of the same hue reads
+   as the same piece of plastic seen from the side. That is most of
+   what makes this look physical. */
+.key--gold {
+  --key-edge: var(--accent-edge);
+  background: var(--accent);
+  color: var(--dark);
+}
+
+.key--ghost {
+  --key-edge: #2b3468;
+  background: var(--surface-2);
+  color: var(--text);
+  border-color: var(--line);
+}
+
+/* Pops further out of the slot. */
+.key:hover {
+  --travel: 8px;
+}
+
+/* Slams flush into the slot. Faster than the release, because real
+   keys snap down and spring back — equal timing feels mushy. */
+.key:active {
+  --travel: 0px;
+  transition-duration: 40ms;
+}
+
+.key:disabled {
+  --travel: 0px;
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* A toggle that is currently ON stays pressed into its slot — the
+   same way a caps-lock key stays down. FilterBar sets aria-pressed,
+   so the look and the screen-reader announcement come from one
+   attribute instead of drifting apart. */
+.key[aria-pressed='true'] {
+  --travel: 0px;
+}
+.key[aria-pressed='true']:hover {
+  --travel: 2px;
+}
+
+/* A keyboard user never triggers :hover, so this outline is the only
+   thing telling them where they are. It is doing real work — it is
+   not decoration. */
+.key:focus-visible {
+  outline: 3px solid var(--pink);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .key {
+    transition: none;
+  }
+  .key:hover {
+    --travel: 4px; /* no pop; the colour still changes on hover */
+  }
+}

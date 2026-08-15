@@ -1,0 +1,116 @@
+/* =============================================================
+   THE DISAPPEAR / REVEAL EFFECT —  done.
+   This is the file you asked about. It is deliberately small.
+
+   Two separate effects live here:
+
+     1. SCREEN TRANSITION — when you click a nav item, the whole
+        screen wipes out and the new one powers in. Driven by
+        useScreenTransition.js.
+
+     2. SCROLL REVEAL — as you scroll, blocks fade up into view and
+        fade back out as they leave. Driven by useReveal.js.
+
+   Both are wrapped up at the bottom for prefers-reduced-motion.
+   ============================================================= */
+
+/* -------------------------------------------------------------
+   1. SCREEN TRANSITION
+
+   The `filter: brightness()` steps are what make this feel like a
+   CRT rather than a generic web fade — an old screen flashes bright
+   for a moment as it powers down and up. Remove the filter lines
+   and you'll immediately see how much of the character they carry.
+
+   scaleY is doing the same job: a real tube collapses vertically.
+   ------------------------------------------------------------- */
+
+.screen {
+  animation: screen-in var(--screen-ms) ease-out both;
+}
+
+/* data-phase="out" is set by the hook just before the swap. */
+.screen[data-phase='out'] {
+  animation: screen-out var(--screen-ms) ease-in forwards;
+}
+
+@keyframes screen-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scaleY(0.985);
+    filter: brightness(1.7);
+  }
+  55% {
+    filter: brightness(1);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+@keyframes screen-out {
+  from {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px) scaleY(0.97);
+    filter: brightness(1.5);
+  }
+}
+
+/* -------------------------------------------------------------
+   2. SCROLL REVEAL
+
+   Starts hidden and shifted down. useReveal flips data-visible when
+   the element enters the viewport, and the transition does the rest.
+
+   --reveal-delay lets you stagger a row of cards so they don't all
+   arrive at once. ProjectCard passes index * 60ms.
+   ------------------------------------------------------------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 520ms ease, transform 520ms ease;
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal[data-visible='true'] {
+  opacity: 1;
+  transform: none;
+}
+
+/* -------------------------------------------------------------
+   3. MOTION PREFERENCE
+
+   Not optional, and not just politeness — for some people a
+   full-screen flash and slide is genuinely unpleasant. Everything
+   still WORKS here, it just arrives instantly.
+
+   Note the hooks also check this in JS. Belt and braces: the CSS
+   stops the animation, the JS stops the waiting.
+   ------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .screen,
+  .screen[data-phase='out'] {
+    animation: none;
+    opacity: 1;
+  }
+
+  .reveal,
+  .reveal[data-visible='true'] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
