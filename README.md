@@ -29,7 +29,7 @@ This is my final React portfolio capstone, rebuilt from my Portfolio v1 using Re
 
 ## Screenshot
 
-![React portfolio screenshot](screenshot/homepageReact.png)
+![React portfolio screenshot](screenshot/homepage.png)
 
 ## Not In This Version
 
