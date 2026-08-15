@@ -17,10 +17,9 @@ export const profile = {
 
   /* TODO: rewrite this in your own voice. 2–3 sentences max.
      Mention the bootcamp, but lead with what you can DO. */
-  bio: `I build clean, responsive websites and interactive web apps.
-        I came out of the WEB101 bootcamp comfortable across the whole
-        pipeline — designing the interface, building it in HTML, CSS and
-        JavaScript, and working with the data behind it in Python and SQL.`,
+  bio: `I'm a frontend developer with a background in psychology and a growing skill set in web development,
+   UI/UX, and data. Through WEB101, I learned how to design interfaces, build responsive pages with HTML, CSS, JavaScript, and React, 
+   and work with data using tools like Python and SQL.`,
 
   email: 'fareehaasif_598@hotmail.com',
   githubUsername: 'fareehaasif598-cloud',
