@@ -17,13 +17,10 @@ export const profile = {
   resume: `${import.meta.env.BASE_URL}fareeha-asif-resume.pdf`,
 },
 
-  /* Skills grouped by discipline. This grouping is doing real work —
-     it tells the three-discipline story before anyone scrolls.
-     TODO: add/remove to match what you'd actually be happy
-     being asked about in an interview. */
+
   skills: [
     { track: 'web', label: 'Web', items: ['HTML', 'CSS', 'JavaScript', 'React', 'Vite', 'Git'] },
-    { track: 'design', label: 'Design', items: ['Figma', 'Wireframing', 'Accessibility'] },
-    { track: 'data', label: 'Data', items: ['Python', 'SQL', 'pandas'] },
+    { track: 'design', label: 'Design', items: ['Figma', 'Wireframing', 'Miro' , 'Prototyping'] },
+    { track: 'data', label: 'Data', items: ['Python', 'SQL', 'pandas', 'Power BI', 'FastApi'] },
   ],
 };
