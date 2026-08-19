@@ -53,7 +53,7 @@ export default function ContactScreen() {
 
           {links.resume && (
             <KeyButton as="a" variant="ghost" href={links.resume}>
-              Résumé
+              Resume
             </KeyButton>
           )}
         </div>
